@@ -5,6 +5,7 @@ use_frameworks!
 target 'WeatherApp' do
 pod 'Alamofire', '~> 4.5'  
 pod 'AlamofireObjectMapper', '~> 5.0'
+pod 'PureLayout'
 
 
   target 'WeatherAppTests' do

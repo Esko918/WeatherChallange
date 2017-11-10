@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        let service = WeatherService()
+        service.weatherFromCity(city: "NewYork") { (city, e) in
+            print(city!)
+        }
+        
         
         
         return true

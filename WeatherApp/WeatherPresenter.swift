@@ -1,5 +1,5 @@
 //
-//  Weather.swift
+//  WeatherPresenter.swift
 //  WeatherApp
 //
 //  Created by Charles Graffeo on 11/10/17.
@@ -8,10 +8,6 @@
 
 import UIKit
 
-class Weather: NSObject {
-    
-    var main:String?
-    var weatherDescription:String?
-    var icon:String?
-    
+class WeatherPresenter: NSObject {
+
 }

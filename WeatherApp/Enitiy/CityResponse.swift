@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-class City: Mappable {
+class CityResponse: Mappable {
     
     var name:String?
     var minTemp:Float?
@@ -16,7 +16,8 @@ class City: Mappable {
     var tempeture:Float?
     var sunrise:Int?
     var sunset:Int?
-    var weather:Weather = Weather()
+    var weather:[WeatherResponse]?
+    
     
     required init?(map: Map) {
         
@@ -30,10 +31,7 @@ class City: Mappable {
         tempeture <- map["main.temp"]
         sunrise <- map["sys.sunrise"]
         sunset <- map["sys.sunset"]
-        weather.main <- ["weather.main"]
-        weather.weatherDescription <- map["weather.description"]
-        weather.icon <- map["weather.icon"]
-        
+        weather <- map["weather"]
     }
     
 }
