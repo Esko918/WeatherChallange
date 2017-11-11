@@ -14,7 +14,7 @@ class WeatherWireFrame: WeatherWireFrameProtocol {
     
     var viewController: UIViewController?
     
-    static func initalRootController() -> UIViewController{
+    static func initialRootController() -> UIViewController{
         
         let view = WeatherViewController()
         let presenter = WeatherPresenter()

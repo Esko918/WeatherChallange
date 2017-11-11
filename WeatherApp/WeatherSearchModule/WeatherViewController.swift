@@ -16,14 +16,11 @@ class WeatherViewController: UIViewController {
     var city:CityResponse?
     
     let searchBar = UITextField().configureForAutoLayout()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        
-        
-    }
 
+    override func viewDidLoad() {
+        self.initialViewSetup()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -36,35 +33,34 @@ class WeatherViewController: UIViewController {
         searchBar.placeholder = "Search For City"
         searchBar.returnKeyType = .search
         searchBar.borderStyle = .roundedRect
+        self.view.addSubview(searchBar)
+        
+        view.setNeedsUpdateConstraints()
+        view.updateConstraintsIfNeeded()
         
     }
     func loadNewCityData(){
         
     }
     
-    func displaySearchBar(){
-        
-        
-        
-    }
-    
     override func updateViewConstraints() {
         
-        if(!autolayoutConfigured){
+        if !autolayoutConfigured {
             
-            searchBar.autoPinEdge(.top, to: .top, of: self.view)
+            searchBar.autoPinEdge(.top, to: .top, of: self.view, withOffset: 20)
             searchBar.autoPinEdge(.leading, to: .leading, of: self.view)
             searchBar.autoPinEdge(.trailing, to: .trailing, of: self.view)
             searchBar.autoSetDimension(.height, toSize: 40)
             
-            
+            autolayoutConfigured = true
         }
+        
+        super.updateViewConstraints()
     }
-    
-    
 }
 
 extension WeatherViewController: WeatherView{
+    
     func errorRetreivingInformation() {
         let alert = UIAlertController.init(title: "Error",
                                            message: "Something went wrong when searching for your city",
@@ -81,7 +77,4 @@ extension WeatherViewController: WeatherView{
     func showWeatherForCity(city: String) {
         //Temp
     }
-    
-  
-    
 }

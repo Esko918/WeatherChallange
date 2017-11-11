@@ -41,5 +41,5 @@ protocol WeatherInteracterOutput:class {
 protocol WeatherWireFrameProtocol: class {
     weak var viewController: UIViewController? { get set }
     
-    static func initalRootController() -> UIViewController
+    static func initialRootController() -> UIViewController
 }
