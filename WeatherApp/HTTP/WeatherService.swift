@@ -13,7 +13,8 @@ class WeatherService {
 
     public func weatherFromCity(city:String, closure:@escaping (CityResponse?,Error?)->Void){
         
-        let searchUrl = WeatherServiceUrlCreator.weatherFromCity(city: city)
+        let urlEscapedSearchValue = city.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let searchUrl = WeatherServiceUrlCreator.weatherFromCity(city: urlEscapedSearchValue!)
         
         Alamofire.request(searchUrl).responseObject { (response:DataResponse<CityResponse>) in
             switch response.result {

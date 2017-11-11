@@ -6,9 +6,6 @@
 //  Copyright © 2017 CharlesGraffeo. All rights reserved.
 //
 
-import UIKit
-
-
 
 //Class that receives input from the view controller and requests data from interater
 class WeatherPresenter: WeatherPresenterProtocol{
@@ -19,7 +16,7 @@ class WeatherPresenter: WeatherPresenterProtocol{
     
     //Add Router When Needed
     func didClickSearchButton(city: String) {
-        self.interacter.fetchInformationFromCity(city: city)
+        self.interacter.fetchWeatherForCity(city: city)
     }
 }
 
@@ -32,6 +29,8 @@ extension WeatherPresenter:WeatherInteracterOutput{
             
             return
         }
+        
+        self.view?.showWeatherForCity(city: city)
         
     }
 }

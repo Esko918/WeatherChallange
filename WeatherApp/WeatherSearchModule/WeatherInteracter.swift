@@ -14,12 +14,12 @@ class WeatherInteracter:WeatherInteracterInput {
     var output: WeatherInteracterOutput!
     
     //MARK:- WeatherInteracterInput
-    func fetchInformationFromCity(city: String) {
+    func fetchWeatherForCity(city: String) {
         let service = WeatherService()
         service.weatherFromCity(city: city) { (city, error) in
             self.output.cityInformationFetched(city: city)
             
-            //If there was an error i would log it somewhere
+            //If there was an error i would log it somewhere and handle it in the presenter
             
         }
     }

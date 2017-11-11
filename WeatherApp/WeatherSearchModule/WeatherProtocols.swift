@@ -14,7 +14,7 @@ protocol WeatherView:class {
     var presenter:WeatherPresenterProtocol! { get set }
     
     func showNoInformationScreen()
-    func showWeatherForCity(city:String)
+    func showWeatherForCity(city:CityResponse)
     func errorRetreivingInformation()
     
 }
@@ -31,7 +31,7 @@ protocol WeatherPresenterProtocol:class {
 //Interactor to Presenter commands
 protocol WeatherInteracterInput:class {
     weak var output: WeatherInteracterOutput! { get set }
-    func fetchInformationFromCity(city:String)
+    func fetchWeatherForCity(city:String)
 }
 
 protocol WeatherInteracterOutput:class {

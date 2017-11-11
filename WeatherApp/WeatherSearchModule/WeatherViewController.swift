@@ -33,6 +33,7 @@ class WeatherViewController: UIViewController {
         searchBar.placeholder = "Search For City"
         searchBar.returnKeyType = .search
         searchBar.borderStyle = .roundedRect
+        searchBar.delegate = self
         self.view.addSubview(searchBar)
         
         view.setNeedsUpdateConstraints()
@@ -74,7 +75,16 @@ extension WeatherViewController: WeatherView{
         //Temp
     }
     
-    func showWeatherForCity(city: String) {
+    func showWeatherForCity(city: CityResponse) {
         //Temp
+    }
+}
+
+extension WeatherViewController: UITextFieldDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.presenter.didClickSearchButton(city: textField.text!)
+        return true
     }
 }
