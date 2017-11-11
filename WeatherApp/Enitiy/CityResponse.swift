@@ -18,10 +18,7 @@ class CityResponse: Mappable {
     var sunset:Int?
     var weather:[WeatherResponse]?
     
-    
-    required init?(map: Map) {
-        
-    }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         

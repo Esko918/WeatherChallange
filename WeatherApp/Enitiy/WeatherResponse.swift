@@ -15,16 +15,11 @@ class WeatherResponse: Mappable {
     var weatherDescription:String?
     var icon:String?
     
-    required init?(map: Map) {
-         mapping(map: map)
-    }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         main <- map["main"]
         icon <- map["icon"]
         weatherDescription <- map["description"]
-        
     }
-    
-    
 }

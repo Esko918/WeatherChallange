@@ -6,8 +6,21 @@
 //  Copyright © 2017 CharlesGraffeo. All rights reserved.
 //
 
-import UIKit
 
-class WeatherInteractor: NSObject {
+//Data Logic
+
+protocol WeatherInteracterInput:class {
+    func informationForCity(city:String)->CityResponse?
+}
+class WeatherInteractor:WeatherInteracterInput {
+    
+    weak var presenter:WeatherPresenter?
+    
+    //MARK:- WeatherInteracterInput
+    func informationForCity(city: String) -> CityResponse? {
+        print("No")
+        return nil
+    }
+    
 
 }
