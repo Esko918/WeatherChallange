@@ -8,10 +8,11 @@
 
 import UIKit
 
-
-//Handles all navigation through application
+//Handles navigation into and out of the Wireframe Module
 class WeatherWireFrame: WeatherWireFrameProtocol {
     
+    
+
     var viewController: UIViewController?
     
     static func initialRootController() -> UIViewController{

@@ -6,6 +6,11 @@
 //  Copyright © 2017 CharlesGraffeo. All rights reserved.
 //
 
+
+struct APIKey{
+    static let key = "7ea21a282006fda669c6438fff0373d1"
+}
+
 class WeatherServiceUrlCreator {
     
     static func weatherFromCity(city:String)->String{
@@ -14,6 +19,6 @@ class WeatherServiceUrlCreator {
     }
     
     static func appendApiKeyToUrl(url:String)->String{
-        return url + "&APPID=7ea21a282006fda669c6438fff0373d1"
+        return url + "&APPID=" + APIKey.key
     }
 }

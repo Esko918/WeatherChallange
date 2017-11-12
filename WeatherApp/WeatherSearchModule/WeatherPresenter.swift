@@ -13,7 +13,17 @@ class WeatherPresenter: WeatherPresenterProtocol{
     var view: WeatherView?
     var interacter: WeatherInteracterInput!
     var router: WeatherWireFrameProtocol!
-    
+    var city:CityResponse? {
+        didSet{
+            if let city = city {
+                view?.showWeatherForCity(city: city)
+            }
+            else{
+                view?.showNoInformationScreen()
+            }
+        }
+        
+    }
     //Add Router When Needed
     func didClickSearchButton(city: String) {
         self.interacter.fetchWeatherForCity(city: city)
@@ -23,14 +33,7 @@ class WeatherPresenter: WeatherPresenterProtocol{
 extension WeatherPresenter:WeatherInteracterOutput{
     func cityInformationFetched(city: CityResponse?) {
         
-        //Load city to view from here
-        guard let city = city else{
-            
-            
-            return
-        }
-        
-        self.view?.showWeatherForCity(city: city)
+       self.city = city
         
     }
 }

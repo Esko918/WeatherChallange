@@ -14,6 +14,7 @@ class WeatherViewController: UIViewController {
     var autolayoutConfigured = false
     var presenter:WeatherPresenterProtocol!
     var city:CityResponse?
+    var resultsView:WeatherCityResultsView?
     
     let searchBar = UITextField().configureForAutoLayout()
 
@@ -38,9 +39,6 @@ class WeatherViewController: UIViewController {
         
         view.setNeedsUpdateConstraints()
         view.updateConstraintsIfNeeded()
-        
-    }
-    func loadNewCityData(){
         
     }
     
@@ -76,11 +74,38 @@ extension WeatherViewController: WeatherView{
     }
     
     func showWeatherForCity(city: CityResponse) {
-        //Temp
+        
+        if(resultsView == nil){
+            
+            resultsView = WeatherCityResultsView.init(frame: .zero)
+            self.view.addSubview(resultsView!)
+            
+            resultsView?.autoPinEdge(.top, to: .bottom, of: self.searchBar, withOffset: 0)
+            resultsView?.autoPinEdge(.leading, to: .leading, of: self.view, withOffset: 0)
+            resultsView?.autoPinEdge(.trailing, to: .trailing, of: self.view, withOffset: 0)
+            resultsView?.autoPinEdge(.bottom, to: .bottom, of: self.view, withOffset: 0)
+            
+        }
+        
+        resultsView?.updateWeatherResults(name: city.name!, tempeture: city.tempeture!)
+        self.searchBar.resignFirstResponder()
     }
 }
 
 extension WeatherViewController: UITextFieldDelegate{
+    
+    
+    //This is used inorder to not allow the user to input any symbols or numbers in the search field
+    //If they send numbers or symbols to the search api it will return nil for all values
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.rangeOfCharacter(from: CharacterSet.letters) != nil{
+            return true
+        }
+        else {
+            return false
+        }
+        
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
