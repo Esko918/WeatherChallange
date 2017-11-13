@@ -175,6 +175,7 @@
 		BD3D18811FB6517E00AD257C /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				BDF25E591FB9389C004F2409 /* TempetureConverter.swift */,
 				BD3D18BE1FB6779700AD257C /* WeatherSearchModule */,
 				BD3D18BD1FB6704600AD257C /* Enitiy */,
 				BD3D18B81FB65A8A00AD257C /* HTTP */,
@@ -182,7 +183,6 @@
 				BD3D18891FB6517E00AD257C /* Assets.xcassets */,
 				BD3D188B1FB6517E00AD257C /* LaunchScreen.storyboard */,
 				BD3D188E1FB6517E00AD257C /* Info.plist */,
-				BDF25E591FB9389C004F2409 /* TempetureConverter.swift */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";

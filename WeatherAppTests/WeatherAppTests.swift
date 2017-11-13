@@ -21,4 +21,11 @@ class WeatherAppTests: XCTestCase {
         super.tearDown()
     }
     
+    func testTempertureConverterForKelvinToFarenheight(){
+        let kelvin = Float(280.0)
+        let result = TempetureConverter.kelvinToFarenheight(kelvin: kelvin)
+        let expectedResult = Float(44.3299866)
+        XCTAssertEqual(result, expectedResult)
+    }
+    
 }
