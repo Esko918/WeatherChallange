@@ -42,14 +42,14 @@ class WeatherCityResultsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func updateWeatherResults(name:String, tempeture:Float, minTemp:Float, maxTemp:Float,sunset:Int,sunrise:Int, weatherMain:String, weatherDescription:String, weatherIcon:String){
+    public func updateWeatherResults(name:String, tempeture:Float, minTemp:Float, maxTemp:Float,sunset:String,sunrise:String, weatherMain:String, weatherDescription:String, weatherIcon:String){
         
         nameLbl.text = "\(name)"
         tempetureLbl.text = "Temperture: \(String(format:"%.2f",tempeture))F"
         minTempLbl.text = "Min Temp: \(String(format:"%.2f",minTemp))F"
         maxTempLbl.text = "Max Temp: \(String(format:"%.2f",maxTemp))F"
-        sunriseLbl.text = "Hours Till Sunrise: \(sunrise)"
-        sunsetLbl.text = "Hours Till SunSet: \(sunset)"
+        sunriseLbl.text = "Sunrise: \(sunrise)"
+        sunsetLbl.text = "Sunset: \(sunset)"
         weatherMainLbl.text = "Weather Conditions :\(weatherMain)"
         weatherDescriptionLbl.text = "\(weatherDescription)"
         weatherIconLbl.text = "\(weatherIcon)"

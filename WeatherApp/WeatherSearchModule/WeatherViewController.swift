@@ -88,9 +88,10 @@ extension WeatherViewController: WeatherView{
         let tempeture = TempetureConverter.kelvinToFarenheight(kelvin: city.tempeture!)
         let minTemp = TempetureConverter.kelvinToFarenheight(kelvin: city.minTemp!)
         let maxTemp = TempetureConverter.kelvinToFarenheight(kelvin: city.maxTemp!)
+        let sunsetTime = Date().timeOfDate(time: city.sunset!)
+        let sunriseTime = Date().timeOfDate(time: city.sunrise!)
         
-        
-        resultsView?.updateWeatherResults(name: city.name!, tempeture: tempeture, minTemp: minTemp, maxTemp: maxTemp, sunset: city.sunset!, sunrise: city.sunrise!, weatherMain: (weather?.main!)!, weatherDescription: (weather?.weatherDescription)!, weatherIcon: (weather?.icon!)!)
+        resultsView?.updateWeatherResults(name: city.name!, tempeture: tempeture, minTemp: minTemp, maxTemp: maxTemp, sunset: sunsetTime, sunrise: sunriseTime, weatherMain: (weather?.main!)!, weatherDescription: (weather?.weatherDescription)!, weatherIcon: (weather?.icon!)!)
         self.searchBar.resignFirstResponder()
     }
 }
