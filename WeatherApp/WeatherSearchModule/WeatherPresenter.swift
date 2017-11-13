@@ -13,27 +13,22 @@ class WeatherPresenter: WeatherPresenterProtocol{
     var view: WeatherView?
     var interacter: WeatherInteracterInput!
     var router: WeatherWireFrameProtocol!
-    var city:CityResponse? {
-        didSet{
-            if let city = city {
-                view?.showWeatherForCity(city: city)
-            }
-            else{
-                view?.showNoInformationScreen()
-            }
-        }
-        
-    }
-    //Add Router When Needed
+    
     func didClickSearchButton(city: String) {
         self.interacter.fetchWeatherForCity(city: city)
     }
 }
 
 extension WeatherPresenter:WeatherInteracterOutput{
-    func cityInformationFetched(city: CityResponse?) {
-        
-       self.city = city
-        
+    func cityInformationFetched(city: City?) {
+        //If the user input some insane value like hudehuehudhudheh, or a symbol or number
+        //the WeatherAPi would return nil for all values and say it was still successful. So check for a nil
+        //value for name, if so dont update the view and show alert message
+        if((city?.name) != nil){
+            self.view?.showWeatherForCity(city: city!)
+        }
+        else{
+            self.view?.errorRetreivingInformation()
+        }
     }
 }

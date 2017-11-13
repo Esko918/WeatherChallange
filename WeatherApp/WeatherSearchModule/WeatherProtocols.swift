@@ -13,8 +13,7 @@ protocol WeatherView:class {
     
     var presenter:WeatherPresenterProtocol! { get set }
     
-    func showNoInformationScreen()
-    func showWeatherForCity(city:CityResponse)
+    func showWeatherForCity(city:City)
     func errorRetreivingInformation()
     
 }
@@ -40,7 +39,7 @@ protocol WeatherInteracterInput:class {
 //Data retreived from the interactor would be sent back to the presenter
 //Seperates the Data Logic from the View Logic
 protocol WeatherInteracterOutput:class {
-    func cityInformationFetched(city:CityResponse?)
+    func cityInformationFetched(city:City?)
 }
 
 

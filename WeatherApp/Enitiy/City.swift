@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-class CityResponse: Mappable {
+class City: Mappable {
     
     var name:String?
     var minTemp:Float?
@@ -16,7 +16,7 @@ class CityResponse: Mappable {
     var tempeture:Float?
     var sunrise:Int?
     var sunset:Int?
-    var weather:[WeatherResponse]?
+    var weather:[Weather]?
     
     required init?(map: Map) { }
     

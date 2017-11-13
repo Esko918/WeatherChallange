@@ -10,20 +10,19 @@ import Alamofire
 import AlamofireObjectMapper
 
 class WeatherService {
-
-    public func weatherFromCity(city:String, closure:@escaping (CityResponse?,Error?)->Void){
+    
+    public func weatherFromCity(city:String, closure:@escaping (City?,Error?)->Void){
         
         let urlEscapedSearchValue = city.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         let searchUrl = WeatherServiceUrlCreator.weatherFromCity(city: urlEscapedSearchValue!)
         
-        Alamofire.request(searchUrl).responseObject { (response:DataResponse<CityResponse>) in
+        Alamofire.request(searchUrl).responseObject { (response:DataResponse<City>) in
             switch response.result {
-                case .success:
-                    let cityResponse = response.result.value
-                    closure(cityResponse,nil)
+                case .success(let city):
+                    closure(city,nil)
                     break
-                case .failure:
-                    closure(nil,response.error)
+                case .failure(let error):
+                    closure(nil,error)
                     break
             }
         }

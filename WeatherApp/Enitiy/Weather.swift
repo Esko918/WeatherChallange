@@ -9,7 +9,7 @@
 
 import ObjectMapper
 
-class WeatherResponse: Mappable {
+class Weather: Mappable {
     
     var main:String?
     var weatherDescription:String?

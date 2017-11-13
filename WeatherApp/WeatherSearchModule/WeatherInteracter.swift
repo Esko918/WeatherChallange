@@ -8,7 +8,6 @@
 
 
 //Class that requests data and returns it to the presenter neatly
-
 class WeatherInteracter:WeatherInteracterInput {
     
     var output: WeatherInteracterOutput!
@@ -18,7 +17,6 @@ class WeatherInteracter:WeatherInteracterInput {
         let service = WeatherService()
         service.weatherFromCity(city: city) { (city, error) in
             self.output.cityInformationFetched(city: city)
-            
             //If there was an error i would log it somewhere and handle it in the presenter
             
         }
