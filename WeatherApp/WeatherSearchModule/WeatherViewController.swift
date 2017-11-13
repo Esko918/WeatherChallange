@@ -13,7 +13,6 @@ class WeatherViewController: UIViewController {
 
     var autolayoutConfigured = false
     var presenter:WeatherPresenterProtocol!
-    var city:City?
     var resultsView:WeatherCityResultsView?
     
     let searchBar = UITextField().configureForAutoLayout()
