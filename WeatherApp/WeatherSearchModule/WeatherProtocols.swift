@@ -23,7 +23,7 @@ protocol WeatherPresenterProtocol:class {
     weak var view:WeatherView? { get set }
     var interacter:WeatherInteracterInput! { get set }
     var router:WeatherWireFrameProtocol! { get set }
-
+    var cityDisplayed:City? { get set }
     func didClickSearchButton(city:String)
     
 }

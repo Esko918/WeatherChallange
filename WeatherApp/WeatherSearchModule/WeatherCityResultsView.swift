@@ -25,6 +25,7 @@ class WeatherCityResultsView: UIView {
     override init(frame: CGRect) {
         super.init(frame:frame)
         self.configureForAutoLayout()
+        self.restorationIdentifier = "WeatherCityResultsViewResorationIdentifier"
         
         self.addSubview(nameLbl)
         self.addSubview(tempetureLbl)

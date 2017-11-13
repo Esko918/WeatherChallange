@@ -9,7 +9,7 @@
 
 //Class that receives input from the view controller and requests data from interater
 class WeatherPresenter: WeatherPresenterProtocol{
-    
+
     var view: WeatherView?
     var interacter: WeatherInteracterInput!
     var router: WeatherWireFrameProtocol!
@@ -23,6 +23,7 @@ class WeatherPresenter: WeatherPresenterProtocol{
 //MARK: Weather Interactor Output Protocol
 extension WeatherPresenter:WeatherInteracterOutput{
     func cityWeatherFetched(city: City?) {
+        self.cityDisplayed = city
         self.view?.showWeatherForCity(city: city!)
     }
     

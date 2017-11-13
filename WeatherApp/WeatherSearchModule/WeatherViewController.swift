@@ -10,14 +10,38 @@ import UIKit
 import PureLayout
 
 class WeatherViewController: UIViewController {
-
+    
     var autolayoutConfigured = false
     var presenter:WeatherPresenterProtocol!
     var resultsView:WeatherCityResultsView?
     
     let searchBar = UITextField().configureForAutoLayout()
 
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        coder.encode(presenter.cityDisplayed, forKey: "searchViewControllerCityDisplayed")
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        
+        presenter.cityDisplayed = coder.decodeObject(forKey: "searchViewControllerCityDisplayed") as? City
+        super.decodeRestorableState(with: coder)
+        
+    }
+    
+    override func applicationFinishedRestoringState() {
+        // Final configuration goes here.
+        // Load images, reload data, e. t. c.
+        
+        
+    }
+    
+    
+    
     override func viewDidLoad() {
+        self.restorationIdentifier = "WeatherViewController"
+        self.restorationClass = WeatherViewController.self
         self.initialViewSetup()
     }
     
@@ -104,4 +128,16 @@ extension WeatherViewController: UITextFieldDelegate{
         self.presenter.didClickSearchButton(city: textField.text!)
         return true
     }
+}
+
+extension WeatherViewController:UIViewControllerRestoration{
+    
+    static func viewController(withRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
+        let vc = WeatherViewController()
+        return vc
+        
+    }
+    
+    
+    
 }
