@@ -22,16 +22,11 @@ class WeatherPresenter: WeatherPresenterProtocol{
 
 //MARK: Weather Interactor Output Protocol
 extension WeatherPresenter:WeatherInteracterOutput{
-    func cityInformationFetched(city: City?) {
-        //If the user input some insane value like hudehuehudhudheh, or a symbol or number
-        //the WeatherAPi would return nil for all values and the response of WeatherServcice would still return successful. So check for a nil.
-        //value for name, if so dont update the view and show alert message
-        if((city?.name) != nil){
-            self.view?.showWeatherForCity(city: city!)
-        }
-        else{
-            self.cityDisplayed = city
-            self.view?.errorRetreivingInformation()
-        }
+    func cityWeatherFetched(city: City?) {
+        self.view?.showWeatherForCity(city: city!)
+    }
+    
+    func cityWeatherFetchFailed() {
+        self.view?.errorRetreivingInformation()
     }
 }

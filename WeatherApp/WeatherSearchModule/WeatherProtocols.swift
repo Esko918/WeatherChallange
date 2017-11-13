@@ -39,7 +39,8 @@ protocol WeatherInteracterInput:class {
 //Data retreived from the interactor would be sent back to the presenter
 //Seperates the Data Logic from the View Logic
 protocol WeatherInteracterOutput:class {
-    func cityInformationFetched(city:City?)
+    func cityWeatherFetched(city:City?)
+    func cityWeatherFetchFailed()
 }
 
 

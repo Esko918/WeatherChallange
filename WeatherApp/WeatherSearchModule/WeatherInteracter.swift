@@ -12,12 +12,22 @@ class WeatherInteracter:WeatherInteracterInput {
     
     var output: WeatherInteracterOutput!
     
-    //MARK:- WeatherInteracterInput
     func fetchWeatherForCity(city: String) {
         let service = WeatherService()
         service.weatherFromCity(city: city) { (city, error) in
-            self.output.cityInformationFetched(city: city)
-            //If there was an error i would log it somewhere and handle it in the presenter
+            
+            //have to check for a property of city to be nil. If the user input a symbol or number or the
+            //string they input was an insane string like wdusdfghskdfkjagskjdhfgas. the response would still be successfull
+            //but there would be no data in city and the error would still be nil
+            if(city?.name == nil || error != nil){
+                
+                //Would also handle the error here
+                self.output.cityWeatherFetchFailed()
+                
+            }
+            else{
+                self.output.cityWeatherFetched(city: city)
+            }
             
         }
     }
