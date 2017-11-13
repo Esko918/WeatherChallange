@@ -44,13 +44,13 @@ class WeatherCityResultsView: UIView {
     
     public func updateWeatherResults(name:String, tempeture:Float, minTemp:Float, maxTemp:Float,sunset:Int,sunrise:Int, weatherMain:String, weatherDescription:String, weatherIcon:String){
         
-        nameLbl.text = "Name: " + name
-        tempetureLbl.text = "Tempeture: \(tempeture)"
-        minTempLbl.text = "Min Temp: \(minTemp)"
-        maxTempLbl.text = "Max Temp: \(maxTemp)"
+        nameLbl.text = "\(name)"
+        tempetureLbl.text = "Temperture: \(String(format:"%.2f",tempeture))F"
+        minTempLbl.text = "Min Temp: \(String(format:"%.2f",minTemp))F"
+        maxTempLbl.text = "Max Temp: \(String(format:"%.2f",maxTemp))F"
         sunriseLbl.text = "Hours Till Sunrise: \(sunrise)"
         sunsetLbl.text = "Hours Till SunSet: \(sunset)"
-        weatherMainLbl.text = "\(weatherMain)"
+        weatherMainLbl.text = "Weather Conditions :\(weatherMain)"
         weatherDescriptionLbl.text = "\(weatherDescription)"
         weatherIconLbl.text = "\(weatherIcon)"
         
@@ -88,14 +88,13 @@ class WeatherCityResultsView: UIView {
             weatherMainLbl.autoPinEdge(.leading, to: .leading, of: self.sunriseLbl, withOffset: 0)
             weatherMainLbl.autoPinEdge(.trailing, to: .trailing, of: self.sunriseLbl, withOffset: 0)
             
-            weatherIconLbl.autoPinEdge(.top, to: .bottom, of: self.weatherMainLbl, withOffset: 10)
-            weatherIconLbl.autoPinEdge(.leading, to: .leading, of: self.weatherMainLbl, withOffset: 0)
-            weatherIconLbl.autoPinEdge(.trailing, to: .trailing, of: self.weatherMainLbl, withOffset: 0)
-            
-            weatherDescriptionLbl.autoPinEdge(.top, to: .bottom, of: self.weatherIconLbl, withOffset: 10)
-            weatherDescriptionLbl.autoPinEdge(.leading, to: .leading, of: self.weatherIconLbl, withOffset: 0)
-            weatherDescriptionLbl.autoPinEdge(.trailing, to: .trailing, of: self.weatherIconLbl, withOffset: 0)
+            weatherDescriptionLbl.autoPinEdge(.top, to: .bottom, of: self.weatherMainLbl, withOffset: 10)
+            weatherDescriptionLbl.autoPinEdge(.leading, to: .leading, of: self.weatherMainLbl, withOffset: 0)
+            weatherDescriptionLbl.autoPinEdge(.trailing, to: .trailing, of: self.weatherMainLbl, withOffset: 0)
         
+            weatherIconLbl.autoPinEdge(.top, to: .bottom, of: self.weatherDescriptionLbl, withOffset: 10)
+            weatherIconLbl.autoPinEdge(.leading, to: .leading, of: self.weatherDescriptionLbl, withOffset: 0)
+            weatherIconLbl.autoPinEdge(.trailing, to: .trailing, of: self.weatherDescriptionLbl, withOffset: 0)
             
             self.didSetConstraints = true
         }
