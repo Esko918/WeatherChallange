@@ -20,20 +20,22 @@ class WeatherViewController: UIViewController {
     
     override func encodeRestorableState(with coder: NSCoder) {
         super.encodeRestorableState(with: coder)
-        coder.encode(presenter.cityDisplayed, forKey: "searchViewControllerCityDisplayed")
+        let currentCity = presenter.cityDisplayed!
+        coder.encode(currentCity, forKey: "searchViewControllerCityDisplayed")
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
-        
-        presenter.cityDisplayed = coder.decodeObject(forKey: "searchViewControllerCityDisplayed") as? City
         super.decodeRestorableState(with: coder)
+        let decodedCity = coder.decodeObject(forKey: "searchViewControllerCityDisplayed") as! City
+        presenter.cityDisplayed! = decodedCity
+        
         
     }
     
     override func applicationFinishedRestoringState() {
-        // Final configuration goes here.
-        // Load images, reload data, e. t. c.
         
+        self.searchBar.text = presenter.cityDisplayed?.name
+        self.showWeatherForCity(city: presenter.cityDisplayed!)
         
     }
     

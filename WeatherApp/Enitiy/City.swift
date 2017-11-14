@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-class City: Mappable {
+class City: NSObject, Mappable {
     
     var name:String?
     var minTemp:Float?
@@ -22,11 +22,11 @@ class City: Mappable {
     required convenience init?(coder aDecoder: NSCoder) {
         
         let name = aDecoder.decodeObject(forKey: "name") as! String
-        let minTemp = aDecoder.decodeObject(forKey: "minTemp") as! Float
-        let maxTemp = aDecoder.decodeObject(forKey: "maxTemp") as! Float
-        let tempeture = aDecoder.decodeObject(forKey: "tempeture") as! Float
-        let sunrise = aDecoder.decodeObject(forKey: "sunrise") as! Int
-        let sunset = aDecoder.decodeObject(forKey: "sunset") as! Int
+        let minTemp = aDecoder.decodeFloat(forKey: "minTemp")
+        let maxTemp = aDecoder.decodeFloat(forKey: "maxTemp")
+        let tempeture = aDecoder.decodeFloat(forKey: "tempeture")
+        let sunrise = aDecoder.decodeInteger(forKey: "sunrise")
+        let sunset = aDecoder.decodeInteger(forKey: "sunset")
         let weather = aDecoder.decodeObject(forKey: "weather")as! Array<Weather>
         self.init(name: name, minTemp: minTemp, maxTemp: maxTemp, tempeture: tempeture, sunrise: sunrise, sunset: sunset, weather: weather)
         
@@ -60,12 +60,12 @@ class City: Mappable {
 extension City: NSCoding{
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(minTemp, forKey: "minTemp")
-        aCoder.encode(maxTemp, forKey: "maxTemp")
-        aCoder.encode(tempeture, forKey: "tempeture")
-        aCoder.encode(sunrise, forKey: "sunrise")
-        aCoder.encode(sunset, forKey: "sunset")
-        aCoder.encode(weather, forKey: "weather")
+        aCoder.encode(name!, forKey: "name")
+        aCoder.encode(minTemp!, forKey: "minTemp")
+        aCoder.encode(maxTemp!, forKey: "maxTemp")
+        aCoder.encode(tempeture!, forKey: "tempeture")
+        aCoder.encode(sunrise!, forKey: "sunrise")
+        aCoder.encode(sunset!, forKey: "sunset")
+        aCoder.encode(weather!, forKey: "weather")
     }
 }

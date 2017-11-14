@@ -9,7 +9,7 @@
 
 import ObjectMapper
 
-class Weather: Mappable {
+class Weather: NSObject,Mappable {
     
     var main:String?
     var weatherDescription:String?
@@ -38,9 +38,9 @@ class Weather: Mappable {
 
 extension Weather:NSCoding{
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(main, forKey: "main")
-        aCoder.encode(weatherDescription, forKey: "weatherDescription")
-        aCoder.encode(icon, forKey: "icon")
+        aCoder.encode(main!, forKey: "main")
+        aCoder.encode(weatherDescription!, forKey: "weatherDescription")
+        aCoder.encode(icon!, forKey: "icon")
     }
     
     

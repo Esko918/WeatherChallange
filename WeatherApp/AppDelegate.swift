@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
         return true
     }
 
