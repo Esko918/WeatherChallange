@@ -16,9 +16,16 @@ class City: NSObject, Mappable {
     var tempeture:Float?
     var sunrise:Int?
     var sunset:Int?
-    var weather:[Weather]?
     
-    required init?(map: Map) { }
+    init(name:String, minTemp:Float, maxTemp:Float,tempeture:Float,sunrise:Int,sunset:Int) {
+        self.name = name
+        self.minTemp = minTemp
+        self.maxTemp = maxTemp
+        self.tempeture = tempeture
+        self.sunrise = sunrise
+        self.sunset = sunset
+    }
+    
     required convenience init?(coder aDecoder: NSCoder) {
         
         let name = aDecoder.decodeObject(forKey: "name") as! String
@@ -27,23 +34,13 @@ class City: NSObject, Mappable {
         let tempeture = aDecoder.decodeFloat(forKey: "tempeture")
         let sunrise = aDecoder.decodeInteger(forKey: "sunrise")
         let sunset = aDecoder.decodeInteger(forKey: "sunset")
-        let weather = aDecoder.decodeObject(forKey: "weather")as! Array<Weather>
-        self.init(name: name, minTemp: minTemp, maxTemp: maxTemp, tempeture: tempeture, sunrise: sunrise, sunset: sunset, weather: weather)
+        self.init(name: name, minTemp: minTemp, maxTemp: maxTemp, tempeture: tempeture, sunrise: sunrise, sunset: sunset)
         
     }
     
-    init(name:String, minTemp:Float, maxTemp:Float,tempeture:Float,sunrise:Int,sunset:Int,weather:[Weather]) {
-        
-        self.name = name
-        self.minTemp = minTemp
-        self.maxTemp = maxTemp
-        self.tempeture = tempeture
-        self.sunrise = sunrise
-        self.sunset = sunset
-        self.weather = weather
-        
-    }
     
+    
+    required init?(map: Map) { }
     func mapping(map: Map) {
         
         name <- map["name"]
@@ -52,7 +49,6 @@ class City: NSObject, Mappable {
         tempeture <- map["main.temp"]
         sunrise <- map["sys.sunrise"]
         sunset <- map["sys.sunset"]
-        weather <- map["weather"]
     }
     
 }
@@ -66,6 +62,5 @@ extension City: NSCoding{
         aCoder.encode(tempeture!, forKey: "tempeture")
         aCoder.encode(sunrise!, forKey: "sunrise")
         aCoder.encode(sunset!, forKey: "sunset")
-        aCoder.encode(weather!, forKey: "weather")
     }
 }

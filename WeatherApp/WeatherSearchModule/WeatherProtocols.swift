@@ -12,7 +12,6 @@ import UIKit
 protocol WeatherView:class {
     
     var presenter:WeatherPresenterProtocol! { get set }
-    
     func showWeatherForCity(city:City)
     func errorRetreivingInformation()
     
@@ -25,6 +24,7 @@ protocol WeatherPresenterProtocol:class {
     var router:WeatherWireFrameProtocol! { get set }
     var cityDisplayed:City? { get set }
     func didClickSearchButton(city:String)
+    func loadCityWithCoder(coder:NSCoder)
     
 }
 
@@ -47,6 +47,6 @@ protocol WeatherInteracterOutput:class {
 //This is where all the navigation to and from another view conteroller would happen
 protocol WeatherWireFrameProtocol: class {
 
-    weak var viewController: UIViewController? { get set }
-    static func initialRootController() -> UIViewController
+    weak var viewController: WeatherViewController? { get set }
+    static func initialRootController() -> WeatherViewController
 }

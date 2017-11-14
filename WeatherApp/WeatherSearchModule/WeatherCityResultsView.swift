@@ -18,14 +18,10 @@ class WeatherCityResultsView: UIView {
     var maxTempLbl = UILabel().configureForAutoLayout()
     var sunsetLbl = UILabel().configureForAutoLayout()
     var sunriseLbl = UILabel().configureForAutoLayout()
-    var weatherMainLbl = UILabel().configureForAutoLayout()
-    var weatherIconLbl = UILabel().configureForAutoLayout()
-    var weatherDescriptionLbl = UILabel().configureForAutoLayout()
     
     override init(frame: CGRect) {
         super.init(frame:frame)
         self.configureForAutoLayout()
-        self.restorationIdentifier = "WeatherCityResultsViewResorationIdentifier"
         
         self.addSubview(nameLbl)
         self.addSubview(tempetureLbl)
@@ -33,9 +29,7 @@ class WeatherCityResultsView: UIView {
         self.addSubview(maxTempLbl)
         self.addSubview(sunsetLbl)
         self.addSubview(sunriseLbl)
-        self.addSubview(weatherMainLbl)
-        self.addSubview(weatherIconLbl)
-        self.addSubview(weatherDescriptionLbl)
+     
         
     }
     
@@ -43,7 +37,7 @@ class WeatherCityResultsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func updateWeatherResults(name:String, tempeture:Float, minTemp:Float, maxTemp:Float,sunset:String,sunrise:String, weatherMain:String, weatherDescription:String, weatherIcon:String){
+    public func updateWeatherResults(name:String, tempeture:Float, minTemp:Float, maxTemp:Float,sunset:String,sunrise:String){
         
         nameLbl.text = "\(name)"
         tempetureLbl.text = "Temperture: \(String(format:"%.2f",tempeture))F"
@@ -51,9 +45,6 @@ class WeatherCityResultsView: UIView {
         maxTempLbl.text = "Max Temp: \(String(format:"%.2f",maxTemp))F"
         sunriseLbl.text = "Sunrise: \(sunrise)"
         sunsetLbl.text = "Sunset: \(sunset)"
-        weatherMainLbl.text = "Weather Conditions :\(weatherMain)"
-        weatherDescriptionLbl.text = "\(weatherDescription)"
-        weatherIconLbl.text = "\(weatherIcon)"
         
     }
     
@@ -84,18 +75,6 @@ class WeatherCityResultsView: UIView {
             sunriseLbl.autoPinEdge(.top, to: .bottom, of: self.sunsetLbl, withOffset: 10)
             sunriseLbl.autoPinEdge(.leading, to: .leading, of: self.sunsetLbl, withOffset: 0)
             sunriseLbl.autoPinEdge(.trailing, to: .trailing, of: self.sunsetLbl, withOffset: 0)
-            
-            weatherMainLbl.autoPinEdge(.top, to: .bottom, of: self.sunriseLbl, withOffset: 10)
-            weatherMainLbl.autoPinEdge(.leading, to: .leading, of: self.sunriseLbl, withOffset: 0)
-            weatherMainLbl.autoPinEdge(.trailing, to: .trailing, of: self.sunriseLbl, withOffset: 0)
-            
-            weatherDescriptionLbl.autoPinEdge(.top, to: .bottom, of: self.weatherMainLbl, withOffset: 10)
-            weatherDescriptionLbl.autoPinEdge(.leading, to: .leading, of: self.weatherMainLbl, withOffset: 0)
-            weatherDescriptionLbl.autoPinEdge(.trailing, to: .trailing, of: self.weatherMainLbl, withOffset: 0)
-        
-            weatherIconLbl.autoPinEdge(.top, to: .bottom, of: self.weatherDescriptionLbl, withOffset: 10)
-            weatherIconLbl.autoPinEdge(.leading, to: .leading, of: self.weatherDescriptionLbl, withOffset: 0)
-            weatherIconLbl.autoPinEdge(.trailing, to: .trailing, of: self.weatherDescriptionLbl, withOffset: 0)
             
             self.didSetConstraints = true
         }

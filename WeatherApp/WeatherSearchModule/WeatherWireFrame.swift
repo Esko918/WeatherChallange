@@ -11,9 +11,9 @@ import UIKit
 //Handles navigation into and out of the Wireframe Module
 class WeatherWireFrame: WeatherWireFrameProtocol {
     
-    var viewController: UIViewController?
+    var viewController: WeatherViewController?
     
-    static func initialRootController() -> UIViewController{
+    static func initialRootController() -> WeatherViewController{
         
         let view = WeatherViewController()
         let presenter = WeatherPresenter()

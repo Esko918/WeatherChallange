@@ -13,55 +13,46 @@ class WeatherViewController: UIViewController {
     
     var autolayoutConfigured = false
     var presenter:WeatherPresenterProtocol!
-    var resultsView:WeatherCityResultsView?
+    var resultsView:WeatherCityResultsView!
     
     let searchBar = UITextField().configureForAutoLayout()
-
     
+    //Not Working
     override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
+        
         let currentCity = presenter.cityDisplayed!
         coder.encode(currentCity, forKey: "searchViewControllerCityDisplayed")
+        super.encodeRestorableState(with: coder)
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
+        //Not working
+        self.presenter.loadCityWithCoder(coder: coder)
         super.decodeRestorableState(with: coder)
-        let decodedCity = coder.decodeObject(forKey: "searchViewControllerCityDisplayed") as! City
-        presenter.cityDisplayed! = decodedCity
-        
-        
     }
-    
+
     override func applicationFinishedRestoringState() {
-        
-        self.searchBar.text = presenter.cityDisplayed?.name
-        self.showWeatherForCity(city: presenter.cityDisplayed!)
-        
+        //Not workiong
+        self.searchBar.text = self.presenter.cityDisplayed?.name
     }
-    
-    
     
     override func viewDidLoad() {
-        self.restorationIdentifier = "WeatherViewController"
-        self.restorationClass = WeatherViewController.self
+        
+        super.viewDidLoad()
+        restorationIdentifier = "WeatherViewControllerResIdentifier"
+        restorationClass = WeatherViewController.self
         self.initialViewSetup()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     func initialViewSetup(){
         
         self.view.backgroundColor = UIColor.white
-        
         searchBar.placeholder = "Search For City"
         searchBar.returnKeyType = .search
         searchBar.borderStyle = .roundedRect
         searchBar.delegate = self
         self.view.addSubview(searchBar)
-        
         
         resultsView = WeatherCityResultsView.init(frame: .zero)
         self.view.addSubview(resultsView!)
@@ -110,14 +101,13 @@ extension WeatherViewController: WeatherView{
     //Updates the weather results on screen
     func showWeatherForCity(city: City) {
     
-        let weather = city.weather!.first
         let tempeture = TempetureConverter.kelvinToFarenheight(kelvin: city.tempeture!)
         let minTemp = TempetureConverter.kelvinToFarenheight(kelvin: city.minTemp!)
         let maxTemp = TempetureConverter.kelvinToFarenheight(kelvin: city.maxTemp!)
         let sunsetTime = Date().timeOfDate(time: city.sunset!)
         let sunriseTime = Date().timeOfDate(time: city.sunrise!)
         
-        resultsView?.updateWeatherResults(name: city.name!, tempeture: tempeture, minTemp: minTemp, maxTemp: maxTemp, sunset: sunsetTime, sunrise: sunriseTime, weatherMain: (weather?.main!)!, weatherDescription: (weather?.weatherDescription)!, weatherIcon: (weather?.icon!)!)
+        resultsView?.updateWeatherResults(name: city.name!, tempeture: tempeture, minTemp: minTemp, maxTemp: maxTemp, sunset: sunsetTime, sunrise: sunriseTime)
         self.searchBar.resignFirstResponder()
     }
 }
@@ -135,11 +125,11 @@ extension WeatherViewController: UITextFieldDelegate{
 extension WeatherViewController:UIViewControllerRestoration{
     
     static func viewController(withRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
-        let vc = WeatherViewController()
-        return vc
         
+        let vc = WeatherWireFrame.initialRootController()
+        vc.restorationIdentifier = "WeatherViewControllerResIdentifier"
+        vc.restorationClass = WeatherViewController.self
+        
+        return vc
     }
-    
-    
-    
 }
