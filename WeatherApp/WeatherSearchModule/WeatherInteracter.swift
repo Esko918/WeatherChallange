@@ -6,12 +6,11 @@
 //  Copyright © 2017 CharlesGraffeo. All rights reserved.
 //
 
-
+import Foundation
 //Class that requests data and returns it to the presenter neatly
-class WeatherInteracter:WeatherInteracterInput {
+class WeatherInteracter: WeatherInteracterInput {
     
     var output: WeatherInteracterOutput!
-    
     func fetchWeatherForCity(city: String) {
         let service = WeatherService()
         service.weatherFromCity(city: city) { (city, error) in
@@ -26,10 +25,28 @@ class WeatherInteracter:WeatherInteracterInput {
                 
             }
             else{
+                self.saveLastSearchedCity(city: city!)
                 self.output.cityWeatherFetched(city: city)
             }
-            
         }
     }
     
+    //returns the last search to the outputter
+    func fetchLastSearchedCity(){
+        let archivedCity = NSKeyedUnarchiver.unarchiveObject(withFile: self.savedCityFilePath()) as? City
+        self.output.lastCitySearchFetch(city: archivedCity!)
+    }
+    
+    //File path in docs directory to the last search
+    private func savedCityFilePath()->String{
+        let manager = FileManager.default
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        let filePath = url?.appendingPathComponent("CityData").path
+        return filePath!
+    }
+    
+    //saves the last search to the file disk
+    private func saveLastSearchedCity(city:City){
+        NSKeyedArchiver.archiveRootObject(city, toFile: self.savedCityFilePath())
+    }
 }

@@ -12,7 +12,9 @@ import UIKit
 protocol WeatherView:class {
     
     var presenter:WeatherPresenterProtocol! { get set }
+    
     func showWeatherForCity(city:City)
+    func loadLastSearchInformation(city:City)
     func errorRetreivingInformation()
     
 }
@@ -23,8 +25,9 @@ protocol WeatherPresenterProtocol:class {
     var interacter:WeatherInteracterInput! { get set }
     var router:WeatherWireFrameProtocol! { get set }
     var cityDisplayed:City? { get set }
+    
     func didClickSearchButton(city:String)
-    func loadCityWithCoder(coder:NSCoder)
+    func displayLastViewedCityIfPresent()
     
 }
 
@@ -33,6 +36,7 @@ protocol WeatherPresenterProtocol:class {
 protocol WeatherInteracterInput:class {
     weak var output: WeatherInteracterOutput! { get set }
     func fetchWeatherForCity(city:String)
+    func fetchLastSearchedCity()
 }
 
 //Interactor to Presrenter
@@ -41,6 +45,7 @@ protocol WeatherInteracterInput:class {
 protocol WeatherInteracterOutput:class {
     func cityWeatherFetched(city:City?)
     func cityWeatherFetchFailed()
+    func lastCitySearchFetch(city:City?)
 }
 
 

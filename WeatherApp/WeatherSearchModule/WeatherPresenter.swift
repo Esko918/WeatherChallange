@@ -19,27 +19,30 @@ class WeatherPresenter: WeatherPresenterProtocol{
         self.interacter.fetchWeatherForCity(city: city)
     }
     
-    func loadCityWithCoder(coder:NSCoder){
-        
-        let decodedCity = coder.decodeObject(forKey: "searchViewControllerCityDisplayed") as! City
-        self.cityDisplayed = City(name: decodedCity.name!,
-                                       minTemp: decodedCity.minTemp!,
-                                       maxTemp: decodedCity.maxTemp!,
-                                       tempeture: decodedCity.tempeture!,
-                                       sunrise: decodedCity.sunset!,
-                                       sunset: decodedCity.sunset!)
+    func displayLastViewedCityIfPresent(){
+        self.interacter.fetchLastSearchedCity()
     }
-    
 }
 
 //MARK: Weather Interactor Output Protocol
 extension WeatherPresenter:WeatherInteracterOutput{
+    
+    //displays the city that was searched in the view
     func cityWeatherFetched(city: City?) {
         self.cityDisplayed = city
         self.view?.showWeatherForCity(city: city!)
     }
     
+    //Displays Error when city cannot be found
     func cityWeatherFetchFailed() {
         self.view?.errorRetreivingInformation()
+    }
+    
+    //Autoloads the last search in the view 
+    func lastCitySearchFetch(city:City?){
+        if(city != nil){
+            self.view?.loadLastSearchInformation(city: city!)
+        }
+        
     }
 }

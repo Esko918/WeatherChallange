@@ -16,32 +16,11 @@ class WeatherViewController: UIViewController {
     var resultsView:WeatherCityResultsView!
     
     let searchBar = UITextField().configureForAutoLayout()
-    
-    //Not Working
-    override func encodeRestorableState(with coder: NSCoder) {
-        
-        let currentCity = presenter.cityDisplayed!
-        coder.encode(currentCity, forKey: "searchViewControllerCityDisplayed")
-        super.encodeRestorableState(with: coder)
-    }
-    
-    override func decodeRestorableState(with coder: NSCoder) {
-        //Not working
-        self.presenter.loadCityWithCoder(coder: coder)
-        super.decodeRestorableState(with: coder)
-    }
-
-    override func applicationFinishedRestoringState() {
-        //Not workiong
-        self.searchBar.text = self.presenter.cityDisplayed?.name
-    }
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        restorationIdentifier = "WeatherViewControllerResIdentifier"
-        restorationClass = WeatherViewController.self
         self.initialViewSetup()
+        presenter.displayLastViewedCityIfPresent()
         
     }
     
@@ -110,6 +89,11 @@ extension WeatherViewController: WeatherView{
         resultsView?.updateWeatherResults(name: city.name!, tempeture: tempeture, minTemp: minTemp, maxTemp: maxTemp, sunset: sunsetTime, sunrise: sunriseTime)
         self.searchBar.resignFirstResponder()
     }
+    
+    func loadLastSearchInformation(city:City){
+        self.searchBar.text = city.name
+        self.showWeatherForCity(city: city)
+    }
 }
 
 //MARK: Textfield Delegate
@@ -119,17 +103,5 @@ extension WeatherViewController: UITextFieldDelegate{
         
         self.presenter.didClickSearchButton(city: textField.text!)
         return true
-    }
-}
-
-extension WeatherViewController:UIViewControllerRestoration{
-    
-    static func viewController(withRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
-        
-        let vc = WeatherWireFrame.initialRootController()
-        vc.restorationIdentifier = "WeatherViewControllerResIdentifier"
-        vc.restorationClass = WeatherViewController.self
-        
-        return vc
     }
 }
