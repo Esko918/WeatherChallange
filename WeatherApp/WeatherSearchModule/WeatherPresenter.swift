@@ -20,7 +20,16 @@ class WeatherPresenter: WeatherPresenterProtocol{
     }
     
     func displayLastViewedCityIfPresent(){
-        self.interacter.fetchLastSearchedCity()
+        
+        do {
+           try self.interacter.fetchLastSearchedCity()
+        }
+        catch FileSystemError.FileNotFound {
+            print("Last city searched for file is not present so dont load on screen")
+        }
+        catch{
+            print("Some Other Error which wont occur")
+        }
     }
 }
 

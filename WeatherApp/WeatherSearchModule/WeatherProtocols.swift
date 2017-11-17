@@ -36,7 +36,7 @@ protocol WeatherPresenterProtocol:class {
 protocol WeatherInteracterInput:class {
     weak var output: WeatherInteracterOutput! { get set }
     func fetchWeatherForCity(city:String)
-    func fetchLastSearchedCity()
+    func fetchLastSearchedCity()throws
 }
 
 //Interactor to Presrenter

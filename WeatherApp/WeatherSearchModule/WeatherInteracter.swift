@@ -32,13 +32,16 @@ class WeatherInteracter: WeatherInteracterInput {
     }
     
     //returns the last search to the outputter
-    func fetchLastSearchedCity(){
-        let archivedCity = NSKeyedUnarchiver.unarchiveObject(withFile: self.savedCityFilePath()) as? City
-        self.output.lastCitySearchFetch(city: archivedCity!)
+    func fetchLastSearchedCity()throws{
+
+        guard let archivedCity = NSKeyedUnarchiver.unarchiveObject(withFile: self.savedCityFilePath()!) as? City else {
+            throw FileSystemError.FileNotFound
+        }
+        self.output.lastCitySearchFetch(city: archivedCity)
     }
     
     //File path in docs directory to the last search
-    private func savedCityFilePath()->String{
+    private func savedCityFilePath()->String?{
         let manager = FileManager.default
         let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         let filePath = url?.appendingPathComponent("CityData").path
@@ -47,6 +50,21 @@ class WeatherInteracter: WeatherInteracterInput {
     
     //saves the last search to the file disk
     private func saveLastSearchedCity(city:City){
-        NSKeyedArchiver.archiveRootObject(city, toFile: self.savedCityFilePath())
+        do{
+            guard let filepath = self.savedCityFilePath() else {
+                throw FileSystemError.AccessNotGrantedToFilepath
+            }
+            
+            guard NSKeyedArchiver.archiveRootObject(city, toFile: filepath) else {
+                throw FileSystemError.FileNotSaved
+            }
+        }catch FileSystemError.FileNotSaved {
+            print("File not saved at path \(self.savedCityFilePath)")
+        }catch FileSystemError.AccessNotGrantedToFilepath{
+            print("Access to filepath is not granted")
+            print("Filepath:\(self.savedCityFilePath)")
+        }catch{
+            print("Some Other Error")
+        }
     }
 }
